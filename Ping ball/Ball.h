@@ -38,5 +38,6 @@ public:
 private:
 	float x, y, r;
 	float speedx, speedy;
+	float speedInc;
 
 };

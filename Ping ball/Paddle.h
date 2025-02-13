@@ -30,12 +30,14 @@ public:
 	float getPaddleY() const { return y; }
 	float getPaddleWidth() const { return width; }
 	float getPaddleHeight() const { return height; }
+	float getPaddleVelocity() const { return velocity; }
 
 	// Setter
 	void setPaddleX(float newX) { x = newX; }
 	void setPaddleY(float newY) { y = newY; }
 	void setPaddleWidth(float newWidth) { width = newWidth; }
 	void setPaddleHeight(float newHeight) { height = newHeight; }
+	void setPaddleVelocity(float newVelocity) { velocity = newVelocity; }
 
 private:
 	float x, y, width, height;

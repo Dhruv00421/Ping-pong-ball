@@ -4,15 +4,15 @@
 #include "raymath.h"
 
 Paddle::Paddle()
-    :x(0), y(0), width(20), height(60),
-    velocity(200.0f), isAI(false)
+    :x(0), y(0), width(0), height(0),
+    velocity(0.0f), isAI(false)
 {
 }
 
 Paddle::Paddle(float startX, float startY)
     :x(startX), y(startY),
-    width(20), height(60),
-    velocity(200.0f), isAI(startX > 400)
+    width(20), height(80),
+    velocity(250.0f), isAI(startX > 400)
 {
     //PaddleRect = { 0.0f, 225.0f, 20.0f, 60.0f }; // x, y, width, height
 }

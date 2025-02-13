@@ -1,13 +1,21 @@
-﻿#include <iostream>
-#include "raylib.h"
-#include "Globals.h"
+﻿#include "raylib.h"
+#include <iostream>
+//#include <Windows.h>
+#include <stdio.h>
+
 
 #define NO_FONT_AWESOME
 
+#ifndef _DEBUG
+
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+
+#endif
+
+#include "Globals.h"
 #include "Ball.h"
 #include "Paddle.h"
 
-#include <stdio.h>
 
 // Imgui Includes
 #include "Imgui/imgui.h"
@@ -16,6 +24,9 @@
 #include "rllm/imgui_impl_raylib.h"
 #include "rllm/rlImGui.h"
 #include <GLFW/glfw3.h>
+//#include <wtypes.h>
+
+
 
 enum GameState { MENU, PLAYING, GAME_OVER };
 GameState gameState = MENU;
@@ -83,6 +94,7 @@ void static toggleFullscreenMode()
 	}
 }
 
+//int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 int main(void)
 {
 
@@ -159,17 +171,20 @@ int main(void)
 
 			if (isCollidingWithPlayer)
 			{
+				//PlaySound(TEXT("Sounds/Paddle_hit.mp3"), NULL, SND_FILENAME | SND_ASYNC);
 				PlaySound(hitSound);
 				score++;
 			}
 
 			if (isCollidingWithAI)
 			{
+				//PlaySound(TEXT("Sounds/Paddle_hit.mp3"), NULL, SND_FILENAME | SND_ASYNC);
 				PlaySound(hitSound);
 			}
 
 			if (isCollidingWithWall)
 			{
+				//PlaySound(TEXT("Sounds/Wall_hit.mp3"), NULL, SND_FILENAME | SND_ASYNC);
 				PlaySound(wallHit);
 			}
 
@@ -196,8 +211,8 @@ int main(void)
 		if (gameState == GAME_OVER)
 		{
 			ball = Ball();  // Reset ball position
-			playerPaddle = Paddle(20, 225);
-			aiPaddle = Paddle(760, 225);
+			playerPaddle = Paddle(0, screenWidth/2);
+			aiPaddle = Paddle(screenWidth - 20, screenHeight / 2);
 		}
 
 		rlImGuiEnd();
@@ -215,4 +230,6 @@ int main(void)
 
 	return 0;
 }
+
+
 

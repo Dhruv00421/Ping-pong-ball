@@ -3,7 +3,7 @@
 #include "raylib.h"
 
 Ball::Ball()
-	: x(screenWidth/2), y(screenHeight/2), speedx( 100.0f), speedy( 100.0f ), r(20)
+	: x(screenWidth/2), y(screenHeight/2), speedx( -150.0f), speedy( 150.0f ), r(20), speedInc(1.1f)
 {
 }
 
@@ -37,19 +37,26 @@ void Ball::Update(Paddle& playerPaddle, Paddle& aiPaddle, Ball& ball)
 
     if (checkCollisionWithPaddle(playerPaddle))
     {
-        if (x - r <= playerPaddle.getPaddleX() || x + r >= playerPaddle.getPaddleX() + playerPaddle.getPaddleWidth())
-            speedx *= -1;
+       /* if (x - r <= playerPaddle.getPaddleX() || x + r >= playerPaddle.getPaddleX() + playerPaddle.getPaddleWidth())
+            speedx *= -1 * speedInc;
 
         if (y - r <= playerPaddle.getPaddleY() || y + r >= playerPaddle.getPaddleY() + playerPaddle.getPaddleHeight())
-            speedy *= -1;
+            speedy *= -1 * speedInc;*/
 
-        //std::cout << "Collision detected" << std::endl;
+        speedx = -speedx;  // Reverse X direction
+        speedx *= speedInc; // Increase speed
+        speedy *= speedInc; // Increase speed
+        speedx = Clamp(speedx, -600.0f, 600.0f);  // Prevent too fast movement
+        speedy = Clamp(speedy, -600.0f, 600.0f);
     }
     if (checkCollisionWithPaddle(aiPaddle))
     {
         if (x - r <= aiPaddle.getPaddleX() || x + r >= aiPaddle.getPaddleX() + aiPaddle.getPaddleWidth())
+        {
             speedx *= -1;
-
+            float paddleVelocity = aiPaddle.getPaddleVelocity() * 1.1f;
+            aiPaddle.setPaddleVelocity(paddleVelocity);
+        }
         if (y - r <= aiPaddle.getPaddleY() || y + r >= aiPaddle.getPaddleY() + aiPaddle.getPaddleHeight())
             speedy *= -1;
 
