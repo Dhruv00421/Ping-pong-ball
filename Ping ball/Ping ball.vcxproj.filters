@@ -109,8 +109,20 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Sounds\Paddle_hit.mp3" />
-    <Media Include="Sounds\Wall_hit.mp3" />
-    <Media Include="Sounds\bg_music.mp3" />
+    <Media Include="Sounds\bg_music.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Sounds\Paddle_hit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Sounds\Wall_hit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Sounds\Pubg-Theme.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Sounds\grenade-explosion.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

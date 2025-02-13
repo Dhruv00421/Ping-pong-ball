@@ -31,6 +31,9 @@
 enum GameState { MENU, PLAYING, GAME_OVER };
 GameState gameState = MENU;
 
+static bool pubg = false;
+static bool normal = true;
+
 //void static resizeWindow(int newWidth, int newHeight) {
 //	SetWindowSize(newWidth, newHeight);
 //}
@@ -44,6 +47,7 @@ void static showImGuiMenu()
 	{
 		//startGame = true;
 		gameState = PLAYING;
+
 	}
 
 	if (ImGui::Button("Exit"))
@@ -125,13 +129,30 @@ int main(void)
 
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_MAXIMIZED);
 	InitWindow(screenWidth, screenHeight, "Ping Pong Ball");
-	InitAudioDevice();
-	Sound hitSound = LoadSound("Sounds/Paddle_hit.mp3");
-	Sound wallHit = LoadSound("Sounds/Wall_hit.mp3");
 
-	Music bgMusic = LoadMusicStream("Sounds/bg_music.mp3");
+	// Sounds & Musics
+	InitAudioDevice();
+	Sound hitSound = LoadSound("Sounds/Paddle_hit.wav");
+	Sound wallHit = LoadSound("Sounds/Wall_hit.wav");
+	Sound grenadeSound = LoadSound("Sounds/grenade-explosion.wav");
+
+	Music bgMusic = LoadMusicStream("Sounds/bg_music.wav");
+	Music pubgMusic = LoadMusicStream("Sounds/Pubg-Theme.wav");
 	SetMusicVolume(bgMusic, 0.1f);
-	PlayMusicStream(bgMusic);
+	SetMusicVolume(pubgMusic, 0.6f);
+
+	if (pubg)
+	{
+		normal = false;
+		PlayMusicStream(pubgMusic);
+	}
+	if (normal)
+	{
+		pubg = false;
+		PlayMusicStream(bgMusic);
+	}
+
+
 
 	SetWindowPosition(50, 50);
 
@@ -144,7 +165,7 @@ int main(void)
 
 	while (!WindowShouldClose())
 	{
-		UpdateMusicStream(bgMusic);
+		//UpdateMusicStream(bgMusic);
 		ClearBackground(GRAY);
 
 		BeginDrawing();
@@ -171,21 +192,39 @@ int main(void)
 
 			if (isCollidingWithPlayer)
 			{
-				//PlaySound(TEXT("Sounds/Paddle_hit.mp3"), NULL, SND_FILENAME | SND_ASYNC);
-				PlaySound(hitSound);
+				if (normal)
+				{
+					PlaySound(hitSound);
+				}
+				if (pubg)
+				{
+					PlaySound(grenadeSound);
+				}
 				score++;
 			}
 
 			if (isCollidingWithAI)
 			{
-				//PlaySound(TEXT("Sounds/Paddle_hit.mp3"), NULL, SND_FILENAME | SND_ASYNC);
-				PlaySound(hitSound);
+				if (normal)
+				{
+					PlaySound(hitSound);
+				}
+				if (pubg)
+				{
+					PlaySound(grenadeSound);
+				}
 			}
 
 			if (isCollidingWithWall)
 			{
-				//PlaySound(TEXT("Sounds/Wall_hit.mp3"), NULL, SND_FILENAME | SND_ASYNC);
-				PlaySound(wallHit);
+				if (normal)
+				{
+					PlaySound(wallHit);
+				}
+				if (pubg)
+				{
+					PlaySound(grenadeSound);
+				}
 			}
 
 			//std::cout << isCollidingPlayer << " " << isCollidingWithAI << std::endl;
@@ -201,6 +240,28 @@ int main(void)
 			DrawText("esc for exit", 10, 70, 20, RAYWHITE);
 			DrawText(TextFormat("Score: %d", score), screenWidth/2, 10, 20, RAYWHITE);
 
+			ImGui::Begin("Music And Sound Control");
+			if (ImGui::Checkbox("Pubg", &pubg)) {
+				if (pubg) {
+					normal = false;
+					StopMusicStream(bgMusic);
+					PlayMusicStream(pubgMusic);
+					SetSoundVolume(grenadeSound, 0.1f);
+
+				}
+			}
+
+			if (ImGui::Checkbox("Normal", &normal)) {
+				if (normal) {
+					pubg = false;
+					StopMusicStream(pubgMusic);
+					PlayMusicStream(bgMusic);
+				}
+			}
+
+			UpdateMusicStream(bgMusic);
+			UpdateMusicStream(pubgMusic);
+
 			DrawFPS(100, 100);
 
 			ball.Draw();
@@ -214,6 +275,7 @@ int main(void)
 			playerPaddle = Paddle(0, screenWidth/2);
 			aiPaddle = Paddle(screenWidth - 20, screenHeight / 2);
 		}
+		ImGui::End();
 
 		rlImGuiEnd();
 		EndDrawing();
@@ -222,7 +284,9 @@ int main(void)
 
 	UnloadSound(hitSound);
 	UnloadSound(wallHit);
+	UnloadSound(grenadeSound);
 	UnloadMusicStream(bgMusic);
+	UnloadMusicStream(pubgMusic);
 
 	rlImGuiShutdown();
 	ImGui::DestroyContext();

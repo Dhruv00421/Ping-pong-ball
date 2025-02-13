@@ -167,9 +167,11 @@
     <ClInclude Include="Vendors\rllm\rlImGui.h" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Sounds\bg_music.mp3" />
-    <Media Include="Sounds\Paddle_hit.mp3" />
-    <Media Include="Sounds\Wall_hit.mp3" />
+    <Media Include="Sounds\bg_music.wav" />
+    <Media Include="Sounds\grenade-explosion.wav" />
+    <Media Include="Sounds\Paddle_hit.wav" />
+    <Media Include="Sounds\Pubg-Theme.wav" />
+    <Media Include="Sounds\Wall_hit.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
