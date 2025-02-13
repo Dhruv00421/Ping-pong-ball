@@ -128,6 +128,7 @@ int main(void)
 	Ball ball;
 	Paddle playerPaddle(0, screenHeight/2);
 	Paddle aiPaddle(screenWidth - 20, screenHeight/2);
+	int score = 0;
 
 	while (!WindowShouldClose())
 	{
@@ -156,10 +157,17 @@ int main(void)
 			bool isCollidingWithAI = ball.checkCollisionWithPaddle(aiPaddle);
 			bool isCollidingWithWall = ball.checkCollisionWithWall(ball);
 
-			if (isCollidingWithPlayer || isCollidingWithAI)
+			if (isCollidingWithPlayer)
+			{
+				PlaySound(hitSound);
+				score++;
+			}
+
+			if (isCollidingWithAI)
 			{
 				PlaySound(hitSound);
 			}
+
 			if (isCollidingWithWall)
 			{
 				PlaySound(wallHit);
@@ -175,6 +183,8 @@ int main(void)
 			DrawText("W for up", 10, 10, 20, RAYWHITE);
 			DrawText("S for down", 10, 30, 20, RAYWHITE);
 			DrawText("F for Fullscreen mode", 10,50, 20, RAYWHITE);
+			DrawText("esc for exit", 10, 70, 20, RAYWHITE);
+			DrawText(TextFormat("Score: %d", score), screenWidth/2, 10, 20, RAYWHITE);
 
 			DrawFPS(100, 100);
 
