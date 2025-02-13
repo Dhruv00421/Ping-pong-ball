@@ -9,7 +9,8 @@
 #include "rllm/rlImGui.h"
 #include <GLFW/glfw3.h>
 
-#include "Box.h"
+#include "Paddle.h"
+#include "Ball.h"
 #include "Globals.h"
 
 
@@ -19,10 +20,11 @@ public:
 	Ball();
 	~Ball();
 
-	void Update(Box& playerBox, Box& aiBox);
+	void Update(Paddle& playerPaddle, Paddle& aiPaddle, Ball& ball);
 	void Draw() const;
 	void OnImguiRender();
-    bool checkCollisionWithBox(const Box& box) const;
+    bool checkCollisionWithPaddle(const Paddle& Paddle) const;
+	bool checkCollisionWithWall(const Ball& ball) const;
 
 	// Getters
 	float getX() const { return x; }

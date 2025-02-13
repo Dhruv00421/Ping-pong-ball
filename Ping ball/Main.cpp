@@ -5,7 +5,7 @@
 #define NO_FONT_AWESOME
 
 #include "Ball.h"
-#include "Box.h"
+#include "Paddle.h"
 
 #include <stdio.h>
 
@@ -28,7 +28,7 @@ void static showImGuiMenu()
 {
 	ImGui::Begin("Game Launcher");
 	
-	ImGui::Text("Welcome to ping ball");
+	ImGui::Text("Welcome to ping pong ball");
 	if (ImGui::Button("Start Game"))
 	{
 		//startGame = true;
@@ -68,10 +68,23 @@ void static gameOverWindow()
 	ImGui::End();
 }
 
+void static toggleFullscreenMode()
+{
+	if (!IsWindowFullscreen)
+	{
+		int monitor = GetCurrentMonitor();
+		SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
+		ToggleFullscreen();
+	}
+	else
+	{
+		ToggleFullscreen();
+		SetWindowSize(screenWidth, screenHeight);
+	}
+}
+
 int main(void)
 {
-	/*const int screenWidth = 800;
-	const int screenHeight = 450;*/
 
 	SetConfigFlags(FLAG_VSYNC_HINT);
 	SetTargetFPS(60);
@@ -82,21 +95,16 @@ int main(void)
 		BeginDrawing();
 		ClearBackground(DARKGRAY);
 
-		rlImGuiBegin();  // Start ImGui frame
-		//if (gameState != PLAYING)
-		//{
-		//	gameOverWindow();
-		//}
-		//else
-		//{
-		//	showImGuiMenu();
-		//}
+		rlImGuiBegin(); 
 
 		showImGuiMenu();
 
 		rlImGuiEnd();    // End ImGui frame
 
 		EndDrawing();
+		if (gameState == PLAYING) {
+			break; // Exit menu loop and start the game
+		}
 	}
 
 	CloseWindow();
@@ -104,26 +112,35 @@ int main(void)
 	if (gameState != PLAYING) return 0;
 
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_MAXIMIZED);
-	InitWindow(screenWidth, screenHeight, "Ping Ball");
+	InitWindow(screenWidth, screenHeight, "Ping Pong Ball");
+	InitAudioDevice();
+	Sound hitSound = LoadSound("Sounds/Paddle_hit.mp3");
+	Sound wallHit = LoadSound("Sounds/Wall_hit.mp3");
+
+	Music bgMusic = LoadMusicStream("Sounds/bg_music.mp3");
+	SetMusicVolume(bgMusic, 0.1f);
+	PlayMusicStream(bgMusic);
+
+	SetWindowPosition(50, 50);
 
 	rlImGuiSetup(false);
 
 	Ball ball;
-	Box playerBox(0, screenHeight/2);
-	Box aiBox(screenWidth-10, screenHeight/2);
-	//InitWindow(screenWidth, screenHeight, "Ping Ball");
+	Paddle playerPaddle(0, screenHeight/2);
+	Paddle aiPaddle(screenWidth - 20, screenHeight/2);
 
 	while (!WindowShouldClose())
 	{
-		if (IsWindowResized()) {
-			screenWidth = GetScreenWidth();
-			screenHeight = GetScreenHeight();
-		}
+		UpdateMusicStream(bgMusic);
 		ClearBackground(GRAY);
 
 		BeginDrawing();
 		rlImGuiBegin();
 
+		if (IsKeyPressed(KEY_F))
+		{
+			toggleFullscreenMode();
+		}
 
 		if (gameState == GAME_OVER)
 		{
@@ -131,12 +148,22 @@ int main(void)
 		}
 		else if (gameState == PLAYING)
 		{
-			ball.Update(playerBox, aiBox);
-			playerBox.Update(ball.getY());
-			aiBox.Update(ball.getY());
+			ball.Update(playerPaddle, aiPaddle, ball);
+			playerPaddle.Update(ball.getY());
+			aiPaddle.Update(ball.getY());
 
-			bool isCollidingPlayer = ball.checkCollisionWithBox(playerBox);
-			bool isCollidingWithAI = ball.checkCollisionWithBox(aiBox);
+			bool isCollidingWithPlayer = ball.checkCollisionWithPaddle(playerPaddle);
+			bool isCollidingWithAI = ball.checkCollisionWithPaddle(aiPaddle);
+			bool isCollidingWithWall = ball.checkCollisionWithWall(ball);
+
+			if (isCollidingWithPlayer || isCollidingWithAI)
+			{
+				PlaySound(hitSound);
+			}
+			if (isCollidingWithWall)
+			{
+				PlaySound(wallHit);
+			}
 
 			//std::cout << isCollidingPlayer << " " << isCollidingWithAI << std::endl;
 
@@ -145,28 +172,33 @@ int main(void)
 				gameState = GAME_OVER;
 			}
 
-
 			DrawText("W for up", 10, 10, 20, RAYWHITE);
 			DrawText("S for down", 10, 30, 20, RAYWHITE);
+			DrawText("F for Fullscreen mode", 10,50, 20, RAYWHITE);
 
 			DrawFPS(100, 100);
 
 			ball.Draw();
-			playerBox.Draw();
-			aiBox.Draw();
+			playerPaddle.Draw();
+			aiPaddle.Draw();
 		}
 
 		if (gameState == GAME_OVER)
 		{
 			ball = Ball();  // Reset ball position
-			playerBox = Box(20, 225);
-			aiBox = Box(760, 225);
+			playerPaddle = Paddle(20, 225);
+			aiPaddle = Paddle(760, 225);
 		}
 
 		rlImGuiEnd();
 		EndDrawing();
 
 	}
+
+	UnloadSound(hitSound);
+	UnloadSound(wallHit);
+	UnloadMusicStream(bgMusic);
+
 	rlImGuiShutdown();
 	ImGui::DestroyContext();
 	CloseWindow();

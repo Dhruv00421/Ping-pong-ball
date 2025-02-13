@@ -48,7 +48,7 @@
     <ClCompile Include="Vendors\Imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Box.cpp">
+    <ClCompile Include="Paddle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Globals.cpp">
@@ -101,11 +101,16 @@
     <ClInclude Include="Vendors\Imgui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Box.h">
+    <ClInclude Include="Paddle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sounds\Paddle_hit.mp3" />
+    <Media Include="Sounds\Wall_hit.mp3" />
+    <Media Include="Sounds\bg_music.mp3" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,5 @@
 #include "Globals.h"
 #include "raylib.h"
 
-int screenWidth = GetScreenWidth();
-int screenHeight = GetScreenHeight();
-/*
-Ball ball;
-Box playerBall(20, 225);
-Box aiBox(760, 225);*/
+int screenWidth = 1280;  // Set to 0 initially
+int screenHeight = 720;
