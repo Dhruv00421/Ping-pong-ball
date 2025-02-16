@@ -104,13 +104,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Vendors</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ping ball\Vendors\Imgui;$(SolutionDir)Ping ball\Vendors\Rlim;$(SolutionDir)Ping ball\Vendors\Raylib\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>raylib.lib;opengl32.lib
-;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>raylib.lib;opengl32.lib;winmm.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Ping ball\Vendors\Raylib\lib;$(SolutionDir)Ping ball\Vendors\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -121,50 +121,54 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Vendors</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ping ball\Vendors\Imgui;$(SolutionDir)Ping ball\Vendors\Rlim;$(SolutionDir)Ping ball\Vendors\Raylib\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>raylib.lib;opengl32.lib
-;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>raylib.lib;opengl32.lib;winmm.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Ping ball\Vendors\Raylib\lib;$(SolutionDir)Ping ball\Vendors\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Paddle.cpp" />
-    <ClCompile Include="Globals.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="src\Ball.cpp" />
+    <ClCompile Include="src\Paddle.cpp" />
+    <ClCompile Include="src\Globals.cpp" />
+    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="Vendors\Imgui\imgui.cpp" />
     <ClCompile Include="Vendors\Imgui\imgui_demo.cpp" />
     <ClCompile Include="Vendors\Imgui\imgui_draw.cpp" />
-    <ClCompile Include="Vendors\Imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="Vendors\Imgui\imgui_impl_opengl2.cpp" />
-    <ClCompile Include="Vendors\Imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Vendors\Imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Vendors\Imgui\backends\imgui_impl_opengl2.cpp" />
+    <ClCompile Include="Vendors\Imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Vendors\Imgui\imgui_tables.cpp" />
     <ClCompile Include="Vendors\Imgui\imgui_widgets.cpp" />
-    <ClCompile Include="Vendors\rllm\rlImGui.cpp" />
+    <ClCompile Include="Vendors\Rlim\imgui_impl_raylib.cpp" />
+    <ClCompile Include="Vendors\Rlim\rlImGui.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="Paddle.h" />
-    <ClInclude Include="Globals.h" />
+    <ClInclude Include="src\Ball.h" />
+    <ClInclude Include="src\Paddle.h" />
+    <ClInclude Include="src\Globals.h" />
     <ClInclude Include="Vendors\Imgui\extras\FA6FreeSolidFontData.h" />
     <ClInclude Include="Vendors\Imgui\extras\IconsFontAwesome6.h" />
     <ClInclude Include="Vendors\Imgui\imconfig.h" />
     <ClInclude Include="Vendors\Imgui\imgui.h" />
-    <ClInclude Include="Vendors\Imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="Vendors\Imgui\imgui_impl_opengl2.h" />
-    <ClInclude Include="Vendors\Imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="Vendors\Imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Vendors\Imgui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="Vendors\Imgui\backends\imgui_impl_opengl2.h" />
+    <ClInclude Include="Vendors\Imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="Vendors\Imgui\backends\imgui_impl_opengl3_loader.h" />
     <ClInclude Include="Vendors\Imgui\imgui_internal.h" />
     <ClInclude Include="Vendors\Imgui\imstb_rectpack.h" />
     <ClInclude Include="Vendors\Imgui\imstb_textedit.h" />
     <ClInclude Include="Vendors\Imgui\imstb_truetype.h" />
-    <ClInclude Include="Vendors\rllm\imgui_impl_raylib.h" />
-    <ClInclude Include="Vendors\rllm\rlImGui.h" />
+    <ClInclude Include="Vendors\Raylib\include\raylib.h" />
+    <ClInclude Include="Vendors\Raylib\include\raymath.h" />
+    <ClInclude Include="Vendors\Raylib\include\rlgl.h" />
+    <ClInclude Include="Vendors\Rlim\imgui_impl_raylib.h" />
+    <ClInclude Include="Vendors\Rlim\rlImGui.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Sounds\bg_music.wav" />
@@ -172,6 +176,13 @@
     <Media Include="Sounds\Paddle_hit.wav" />
     <Media Include="Sounds\Pubg-Theme.wav" />
     <Media Include="Sounds\Wall_hit.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Vendors\lib\OpenAL32.lib" />
+    <Library Include="Vendors\Raylib\lib\raylib.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,13 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vendors\rllm\rlImGui.cpp">
+    <ClCompile Include="src\Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vendors\Imgui\imgui.cpp">
@@ -33,13 +30,13 @@
     <ClCompile Include="Vendors\Imgui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vendors\Imgui\imgui_impl_glfw.cpp">
+    <ClCompile Include="Vendors\Imgui\backends\imgui_impl_glfw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vendors\Imgui\imgui_impl_opengl2.cpp">
+    <ClCompile Include="Vendors\Imgui\backends\imgui_impl_opengl2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vendors\Imgui\imgui_impl_opengl3.cpp">
+    <ClCompile Include="Vendors\Imgui\backends\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vendors\Imgui\imgui_tables.cpp">
@@ -48,15 +45,21 @@
     <ClCompile Include="Vendors\Imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Paddle.cpp">
+    <ClCompile Include="src\Paddle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Globals.cpp">
+    <ClCompile Include="src\Globals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vendors\Rlim\rlImGui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vendors\Rlim\imgui_impl_raylib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ball.h">
+    <ClInclude Include="src\Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vendors\Imgui\extras\FA6FreeSolidFontData.h">
@@ -65,28 +68,22 @@
     <ClInclude Include="Vendors\Imgui\extras\IconsFontAwesome6.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vendors\rllm\imgui_impl_raylib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vendors\rllm\rlImGui.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Vendors\Imgui\imconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vendors\Imgui\imgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vendors\Imgui\imgui_impl_glfw.h">
+    <ClInclude Include="Vendors\Imgui\backends\imgui_impl_glfw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vendors\Imgui\imgui_impl_opengl2.h">
+    <ClInclude Include="Vendors\Imgui\backends\imgui_impl_opengl2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vendors\Imgui\imgui_impl_opengl3.h">
+    <ClInclude Include="Vendors\Imgui\backends\imgui_impl_opengl3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vendors\Imgui\imgui_impl_opengl3_loader.h">
+    <ClInclude Include="Vendors\Imgui\backends\imgui_impl_opengl3_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vendors\Imgui\imgui_internal.h">
@@ -101,10 +98,25 @@
     <ClInclude Include="Vendors\Imgui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Paddle.h">
+    <ClInclude Include="src\Paddle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Globals.h">
+    <ClInclude Include="src\Globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendors\Rlim\imgui_impl_raylib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendors\Rlim\rlImGui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendors\Raylib\include\raylib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendors\Raylib\include\raymath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendors\Raylib\include\rlgl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -124,5 +136,12 @@
     <Media Include="Sounds\grenade-explosion.wav">
       <Filter>Resource Files</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Vendors\Raylib\lib\raylib.lib" />
+    <Library Include="Vendors\lib\OpenAL32.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>
