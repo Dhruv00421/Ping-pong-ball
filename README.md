@@ -4,7 +4,9 @@
 
 ## I also integrate ImGui Gui in this game to learn how to learn the imgui integration and for the game UI(Ofcourse I can use raylib ui for this).
 
-## You can run this code in any Ide (I used cmake for that but I don't exactly know it can run in all ide).
+## You can run this code on any Ide (I used cmake for that but I don't exactly know it can run on all ide).
+
+# __If you only want to play or test the game directly you can download the zip from the github release window.__
 
 ## For VSCode you can follow below steps:
 
