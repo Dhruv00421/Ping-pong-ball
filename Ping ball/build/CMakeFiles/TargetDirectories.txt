@@ -1,6 +1,0 @@
-D:/Ragame/Ping-pong-ball/Ping ball/build/CMakeFiles/Pingpongball.dir
-D:/Ragame/Ping-pong-ball/Ping ball/build/CMakeFiles/imgui.dir
-D:/Ragame/Ping-pong-ball/Ping ball/build/CMakeFiles/rlIm.dir
-D:/Ragame/Ping-pong-ball/Ping ball/build/CMakeFiles/CopySounds.dir
-D:/Ragame/Ping-pong-ball/Ping ball/build/CMakeFiles/ALL_BUILD.dir
-D:/Ragame/Ping-pong-ball/Ping ball/build/CMakeFiles/ZERO_CHECK.dir

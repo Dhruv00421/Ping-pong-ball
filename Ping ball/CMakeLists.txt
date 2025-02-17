@@ -62,8 +62,6 @@ add_library(rlIm STATIC ${RLIM_FILES})
 # Link libraries
 target_link_libraries(Pingpongball PRIVATE imgui rlIm)
 target_link_libraries(Pingpongball PRIVATE ${CMAKE_SOURCE_DIR}/Vendors/Raylib/lib/raylib.lib)
-#target_link_libraries(Pingpongball PRIVATE winmm OpenAL32)
-target_link_libraries(Pingpongball PRIVATE ${CMAKE_SOURCE_DIR}/Vendors/lib/OpenAL32.lib)
 
 
 
