@@ -1,8 +1,10 @@
-﻿#include <raylib.h>
+﻿//#include <Windows.h>
+#define PLATFORM_DESKTOP
+#include <raylib.h>
 #include <iostream>
-//#include <Windows.h>
 #include <stdio.h>
-
+#include <string>
+#include <fstream> 
 
 #define NO_FONT_AWESOME
 
@@ -16,6 +18,13 @@
 #include "Ball.h"
 #include "Paddle.h"
 
+// Include sound header files
+//#include "bg_music.h"
+//#include "Pubg-Theme.h"
+//#include "Wall_hit.h"
+//#include "Paddle_hit.h"
+//#include "grenade-explosion.h"
+
 
 // Imgui Includes
 #include "imgui.h"
@@ -24,8 +33,6 @@
 #include "imgui_impl_raylib.h"
 #include "rlImGui.h"
 #include <GLFW/glfw3.h>
-//#include <wtypes.h>
-
 
 
 enum GameState { MENU, PLAYING, GAME_OVER };
@@ -34,9 +41,17 @@ GameState gameState = MENU;
 static bool pubg = false;
 static bool normal = true;
 
-//void static resizeWindow(int newWidth, int newHeight) {
-//	SetWindowSize(newWidth, newHeight);
-//}
+/*// embedding sound function
+std::string SaveToTempFile(const std::string& filename, const unsigned char* data, unsigned int length) {
+	std::ofstream file(filename, std::ios::binary);  // Open file in binary mode
+	if (!file) {
+		std::cerr << "Error: Could not create temp file: " << filename << std::endl;
+		return "";
+	}
+	file.write(reinterpret_cast<const char*>(data), length);
+	file.close();
+	return filename; // Return the file path
+}*/
 
 void static showImGuiMenu()
 {
@@ -98,14 +113,19 @@ void static toggleFullscreenMode()
 	}
 }
 
-//int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+
 int main(void)
 {
+	//std::string exePath = GetExecutablePath();
+    /*std::string soundsPath = exePath + "\\Sounds\\";*/
+
 
 	SetConfigFlags(FLAG_VSYNC_HINT);
 	SetTargetFPS(60);
 	InitWindow(500, 300, "Game Launcher");  // ImGui Launcher Window
 	rlImGuiSetup(true);  // Initialize ImGui for Raylib
+
+	
 
 	while (!WindowShouldClose() && gameState == MENU) {  // Keep running until "Start Game" is pressed
 		BeginDrawing();
@@ -132,14 +152,33 @@ int main(void)
 
 	// Sounds & Musics
 	InitAudioDevice();
-	Sound hitSound = LoadSound("Sounds/Paddle_hit.wav");
-	Sound wallHit = LoadSound("Sounds/Wall_hit.wav");
-	Sound grenadeSound = LoadSound("Sounds/grenade-explosion.wav");
+
+	/*{
+	*	// Tried to make sound in binary and embedding it in exe file but the music is not working
+		Wave gewave = LoadWaveFromMemory(".wav", (unsigned char*)grenadeexplosionData, grenadeexplosionData_len);
+		Sound grenade_explosion = LoadSoundFromWave(gewave);
+		Wave pdwave = LoadWaveFromMemory(".wav", (unsigned char*)PaddleHitData, PaddleHitData_len);
+		Sound paddle_hit = LoadSoundFromWave(pdwave);
+		Wave wlwave = LoadWaveFromMemory(".wav", (unsigned char*)wallHitData, wallHitData_len);
+		Sound wall_hit = LoadSoundFromWave(wlwave);
+
+		std::string tempFile = "temp_bg_music.wav";
+		SaveToTempFile(tempFile, bgMusicData, bgMusicData_len);
+		Music bgMusic = LoadMusicStream(tempFile.c_str());
+		std::string tempFile2 = "temp_bg_music.wav";
+		SaveToTempFile(tempFile2, pubgThemeData, pubgThemeData_len);
+		Music pubgMusic = LoadMusicStream(tempFile2.c_str());
+	}*/
+
+	Sound paddle_hit = LoadSound("Sounds/Paddle_hit.wav");
+	Sound wall_hit = LoadSound("Sounds/Wall_hit.wav");
+	Sound grenade_explosion = LoadSound("Sounds/grenade-explosion.wav");
 
 	Music bgMusic = LoadMusicStream("Sounds/bg_music.wav");
 	Music pubgMusic = LoadMusicStream("Sounds/Pubg-Theme.wav");
-	SetMusicVolume(bgMusic, 0.1f);
-	SetMusicVolume(pubgMusic, 0.6f);
+
+	/*SetMusicVolume(bgMusic, 0.1f);
+	SetMusicVolume(pubgMusic, 0.6f);*/
 
 	if (pubg)
 	{
@@ -194,11 +233,11 @@ int main(void)
 			{
 				if (normal)
 				{
-					PlaySound(hitSound);
+					PlaySound(paddle_hit);
 				}
 				if (pubg)
 				{
-					PlaySound(grenadeSound);
+					PlaySound(grenade_explosion);
 				}
 				score++;
 			}
@@ -207,11 +246,11 @@ int main(void)
 			{
 				if (normal)
 				{
-					PlaySound(hitSound);
+					PlaySound(paddle_hit);
 				}
 				if (pubg)
 				{
-					PlaySound(grenadeSound);
+					PlaySound(grenade_explosion);
 				}
 			}
 
@@ -219,11 +258,11 @@ int main(void)
 			{
 				if (normal)
 				{
-					PlaySound(wallHit);
+					PlaySound(wall_hit);
 				}
 				if (pubg)
 				{
-					PlaySound(grenadeSound);
+					PlaySound(grenade_explosion);
 				}
 			}
 
@@ -246,7 +285,7 @@ int main(void)
 					normal = false;
 					StopMusicStream(bgMusic);
 					PlayMusicStream(pubgMusic);
-					SetSoundVolume(grenadeSound, 0.1f);
+					SetSoundVolume(grenade_explosion, 0.5f);
 
 				}
 			}
@@ -256,6 +295,7 @@ int main(void)
 					pubg = false;
 					StopMusicStream(pubgMusic);
 					PlayMusicStream(bgMusic);
+
 				}
 			}
 
@@ -282,9 +322,9 @@ int main(void)
 
 	}
 
-	UnloadSound(hitSound);
-	UnloadSound(wallHit);
-	UnloadSound(grenadeSound);
+	UnloadSound(paddle_hit);
+	UnloadSound(wall_hit);
+	UnloadSound(grenade_explosion);
 	UnloadMusicStream(bgMusic);
 	UnloadMusicStream(pubgMusic);
 

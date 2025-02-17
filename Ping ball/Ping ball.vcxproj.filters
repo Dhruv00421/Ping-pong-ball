@@ -57,6 +57,21 @@
     <ClCompile Include="Vendors\Rlim\imgui_impl_raylib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sound_Binaries\grenade-explosion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound_Binaries\Paddle_hit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound_Binaries\Wall_hit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound_Binaries\bg_music.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound_Binaries\Pubg-Theme.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Ball.h">
@@ -119,23 +134,21 @@
     <ClInclude Include="Vendors\Raylib\include\rlgl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="Sounds\bg_music.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
-    <Media Include="Sounds\Paddle_hit.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
-    <Media Include="Sounds\Wall_hit.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
-    <Media Include="Sounds\Pubg-Theme.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
-    <Media Include="Sounds\grenade-explosion.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
+    <ClInclude Include="Sound_Binaries\bg_music.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound_Binaries\grenade-explosion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound_Binaries\Paddle_hit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound_Binaries\Pubg-Theme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound_Binaries\Wall_hit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="Vendors\Raylib\lib\raylib.lib" />
@@ -143,5 +156,22 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sounds\bg_music.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Sounds\grenade-explosion.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Sounds\Paddle_hit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Sounds\Pubg-Theme.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Sounds\Wall_hit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

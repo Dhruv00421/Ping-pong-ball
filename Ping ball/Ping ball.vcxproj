@@ -70,6 +70,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)Ping ball\Output</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)Ping ball\Output</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -104,7 +110,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Ping ball\Vendors\Imgui;$(SolutionDir)Ping ball\Vendors\Rlim;$(SolutionDir)Ping ball\Vendors\Raylib\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ping ball\Vendors\Imgui;$(SolutionDir)Ping ball\Vendors\Rlim;$(SolutionDir)Ping ball\Vendors\Raylib\include;$(SolutionDir)Ping ball\Sound_Binaries</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,7 +128,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Ping ball\Vendors\Imgui;$(SolutionDir)Ping ball\Vendors\Rlim;$(SolutionDir)Ping ball\Vendors\Raylib\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ping ball\Vendors\Imgui;$(SolutionDir)Ping ball\Vendors\Rlim;$(SolutionDir)Ping ball\Vendors\Raylib\include;$(SolutionDir)Ping ball\Sound_Binaries</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +141,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sound_Binaries\bg_music.cpp" />
+    <ClCompile Include="Sound_Binaries\grenade-explosion.cpp" />
+    <ClCompile Include="Sound_Binaries\Paddle_hit.cpp" />
+    <ClCompile Include="Sound_Binaries\Pubg-Theme.cpp" />
+    <ClCompile Include="Sound_Binaries\Wall_hit.cpp" />
     <ClCompile Include="src\Ball.cpp" />
     <ClCompile Include="src\Paddle.cpp" />
     <ClCompile Include="src\Globals.cpp" />
@@ -149,6 +162,11 @@
     <ClCompile Include="Vendors\Rlim\rlImGui.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sound_Binaries\bg_music.h" />
+    <ClInclude Include="Sound_Binaries\grenade-explosion.h" />
+    <ClInclude Include="Sound_Binaries\Paddle_hit.h" />
+    <ClInclude Include="Sound_Binaries\Pubg-Theme.h" />
+    <ClInclude Include="Sound_Binaries\Wall_hit.h" />
     <ClInclude Include="src\Ball.h" />
     <ClInclude Include="src\Paddle.h" />
     <ClInclude Include="src\Globals.h" />
@@ -171,18 +189,18 @@
     <ClInclude Include="Vendors\Rlim\rlImGui.h" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Sounds\bg_music.wav" />
-    <Media Include="Sounds\grenade-explosion.wav" />
-    <Media Include="Sounds\Paddle_hit.wav" />
-    <Media Include="Sounds\Pubg-Theme.wav" />
-    <Media Include="Sounds\Wall_hit.wav" />
-  </ItemGroup>
-  <ItemGroup>
     <Library Include="Vendors\lib\OpenAL32.lib" />
     <Library Include="Vendors\Raylib\lib\raylib.lib" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sounds\bg_music.wav" />
+    <Media Include="Sounds\grenade-explosion.wav" />
+    <Media Include="Sounds\Paddle_hit.wav" />
+    <Media Include="Sounds\Pubg-Theme.wav" />
+    <Media Include="Sounds\Wall_hit.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
