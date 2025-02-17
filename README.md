@@ -23,3 +23,7 @@
 ## For Visual Studio
 
 - Just clone the repositary and open the solution in visual studio and run program
+
+### __NOTE : Just make sure to copy Sounds file with the exe destination folder (I try to make it in one single file but all attempts are failed )__
+
+### Also If anyone can fix this let me know about that.
